@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 
 import { Button } from "@/shared/ui";
 
@@ -22,7 +22,7 @@ const Camera = () => {
             });
     }
     //! CAPTURING PHOTO
-    const handleTakePhoto = () => {
+    const handleTakePhoto = useCallback(() => {
         if (!videoRef.current || !photoRef.current) return;
         const width = 280;
         const height = width / (1 / 1);
@@ -35,15 +35,15 @@ const Camera = () => {
         let data = photo.toDataURL("image/png");
         setPhoto(data);
         console.log("base64 output", data);
-    };
+    }, [videoRef, photoRef, setPhoto]);
 
     //! CLEAR PHOTO
-    const handleClearPhoto = () => {
+    const handleClearPhoto = useCallback(() => {
         if (!photoRef.current) return;
         let photo = photoRef.current;
         let ctx = photo?.getContext("2d");
         ctx?.clearRect(0, 0, photo.width, photo.height);
-    };
+    }, []);
 
     useEffect(() => {
         getUserCamera();
