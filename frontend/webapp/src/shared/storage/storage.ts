@@ -1,26 +1,34 @@
 import { createStore } from "zustand";
+import { type Base64 } from "../types/basic";
 
 export type Store = {
-  bears: number;
+  photo: Base64;
 };
 
 export type StoreActions = {
-  increase: () => void;
-  decrease: () => void;
+  save: () => void;
+  remove: () => void;
 };
 
 export type AppStore = Store & StoreActions;
 
 const defaultStore: Store = {
-  bears: 0,
+  photo: "",
 };
 
 const createAppStore = (initState: Store = defaultStore) => {
   return createStore<AppStore>((set) => ({
     ...initState,
-    increase: () => set((state) => ({ bears: state.bears + 1 })),
-    decrease: () => set((state) => ({ bears: state.bears - 1 })),
-  }));
+    save: () => set((state) => {
+      localStorage.setItem('photo', state.photo);
+      return state;
+    }),
+    remove: () => set((state) => {
+      localStorage.removeItem('photo');
+      return state;
+    }),
+  }))
 };
 
 export { defaultStore, createAppStore };
+

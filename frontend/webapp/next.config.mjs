@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
-
-import million from 'million/compiler';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 import nextPWA from '@ducanh2912/next-pwa';
 
 const withPWA = nextPWA({
@@ -19,14 +18,4 @@ const nextConfig = {
 	reactStrictMode: true,
 };
 
-const millionConfig = {
-	// auto: {
-	//   threshold: 0.1, // default: 0.1,
-	//   skip: ["useBadHook", /badVariable/g], // default []
-	//   // if you're using RSC: auto: { rsc: true },
-	//   rsc: true,
-	// },
-	auto: false,
-};
-
-export default withPWA(million.next(nextConfig, millionConfig));
+export default withPWA(nextConfig);
