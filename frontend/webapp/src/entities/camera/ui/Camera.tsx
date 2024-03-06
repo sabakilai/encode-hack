@@ -53,7 +53,7 @@ const Camera = () => {
         <div className="flex flex-col relative">
             <div className="py-4"></div>
             <div className="flex justify-center">
-                {videoRef && <video className="rounded-full border-white border-8 h-[300px] w-[300px]" ref={videoRef}></video>}
+                {videoRef && <video playsInline autoPlay className="rounded-full border-white border-8 h-[300px] w-[300px]" ref={videoRef}></video>}
             </div>
             <div className="py-4"></div>
             <div className="mx-auto">
