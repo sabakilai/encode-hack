@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useCallback, useState } from "react";
 import { set, get, update, del } from 'idb-keyval';
 import { Button } from "@/shared/ui";
 import Link from "next/link";
+import { POST } from "../api/route";
+import { Base64 } from "@/shared/types/basic";
 
 const CreateAccountPage = () => {
     return (
@@ -17,7 +19,8 @@ const CreateAccountPage = () => {
 export default CreateAccountPage;
 
 const Camera = () => {
-    const [ingredients, setIngredients] = useState<boolean>(false);
+    const [selfie, setSelfie] = useState<Base64>("");
+    const [ingredients, setIngredients] = useState<Base64>("");
     const videoRef = useRef<HTMLVideoElement>(null);
     const photoRef = useRef<HTMLCanvasElement>(null);
 
@@ -46,7 +49,8 @@ const Camera = () => {
         ctx?.drawImage(video, 0, 0, photo.width, photo.height);
         let data = photo.toDataURL("image/png");
         set("ingredients", data).then(() => console.log("ingredients created"));
-        setIngredients(true)
+        get("selfie").then((data: Base64) => setSelfie(data));
+        setIngredients(data)
         if (videoRef.current && photoRef.current) {
             videoRef.current.style.display = 'none';
             photoRef.current.style.display = 'block';
@@ -59,7 +63,7 @@ const Camera = () => {
         let ctx = photoCurrent?.getContext("2d");
         ctx?.clearRect(0, 0, photoCurrent.width, photoCurrent.height);
         del("ingredients").then(() => console.log("ingredients cleared"));
-        setIngredients(false);
+        setIngredients("");
         if (videoRef.current && photoRef.current) {
             videoRef.current.style.display = 'block';
             photoRef.current.style.display = 'none';
@@ -89,13 +93,13 @@ const Camera = () => {
             </div>
             <div className="py-12"></div>
             <div className="flex w-full mb-8 justify-evenly">
-                {ingredients == false ?
+                {ingredients == "" ?
                     (<Button onClick={handleTakePhoto}>Take photo</Button>) :
                     (<Button onClick={handleClearPhoto}>Clear photo</Button>)
                 }
-                {ingredients == true &&
+                {ingredients !== "" &&
                     <Button className="w-fit">
-                        <Link href="/result">
+                        <Link href="/result" onClick={() => POST(selfie, ingredients)}>
                             Next
                         </Link>
                     </Button>
