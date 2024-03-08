@@ -3,9 +3,9 @@ import easyocr
 
 class FoodImageClassifier(object):
 	def __init__(self):
-		reader = easyocr.Reader(['en'])
-		client = OpenAI()
-		zero_shot_prompt = """You are en expert in NOVA Food Classification.
+		self.reader = easyocr.Reader(['en'])
+		self.client = OpenAI()
+		self.zero_shot_prompt = """You are en expert in NOVA Food Classification.
 	Brief Overview of NOVA Food Classification:
 	Unprocessed/Minimally Processed Foods: These include natural foods and those slightly altered by processes like drying, boiling, or freezing without adding other food substances.
 	Processed Culinary Ingredients: Derived from natural foods or nature for use in cooking, such as oils, sugar, and salt, through pressing, refining, or extracting.
