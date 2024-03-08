@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { get } from 'idb-keyval';
+import { Base64 } from '@/shared/types/basic';
 
 const ResultPage = () => {
-    const [selfie, setSelfie] = useState<string>("");
-    console.log(selfie);
+    const [selfie, setSelfie] = useState<Base64>("");
+    const [foodCategory, setFoodCategory] = useState<Base64>("");
     const photoRef = useRef<HTMLCanvasElement>(null);
+
     useEffect(() => {
         get("selfie").then((data) => {
             setSelfie(data);
@@ -26,9 +28,12 @@ const ResultPage = () => {
             }
             if (photoRef.current) photoRef.current.style.display = 'block';
         });
-    }, [selfie, photoRef]);
 
+        get("response").then((data) => {
+            setFoodCategory(data);
+        });
 
+    }, [selfie, photoRef, foodCategory]);
 
     return (
         <main className="flex min-h-svh flex-col bg-gradient-to-t from-indigo-300 via-pink-200 p-12">
@@ -40,8 +45,12 @@ const ResultPage = () => {
                         ref={photoRef}>
                     </canvas>}
                 </div>
+                <div className="py-4"></div>
+                <div>
+                    <h1>{foodCategory}</h1>
+                </div>
             </div>
-        </main>
+        </main >
     );
 };
 

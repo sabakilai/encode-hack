@@ -1,8 +1,7 @@
 import { type Base64 } from "@/shared/types/basic";
+import { set } from "idb-keyval";
 
 export async function POST(selfie: Base64, ingredients: Base64) {
-    console.log("selfie", selfie);
-    console.log("ingredients", ingredients);
     const res = await fetch('http://127.0.0.1:5000/userInput', {
         method: 'POST',
         headers: {
@@ -10,6 +9,8 @@ export async function POST(selfie: Base64, ingredients: Base64) {
         },
         body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
     });
-    const data: string = await res.json()
+    const data = await res.text();
+    set("response", data);
     return Response.json(data);
 }
+
