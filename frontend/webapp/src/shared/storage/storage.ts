@@ -20,11 +20,11 @@ const createAppStore = (initState: Store = defaultStore) => {
   return createStore<AppStore>((set) => ({
     ...initState,
     save: () => set((state) => {
-      localStorage.setItem('photo', state.photo);
+      // localStorage.setItem('photo', state.photo);
       return state;
     }),
     remove: () => set((state) => {
-      localStorage.removeItem('photo');
+      // localStorage.removeItem('photo');
       return state;
     }),
   }))
