@@ -45,9 +45,8 @@ const Camera = () => {
         photo.height = height;
         ctx?.drawImage(video, 0, 0, photo.width, photo.height);
         let data = photo.toDataURL("image/png");
-        set("ingredients", data);
+        set("ingredients", data).then(() => console.log("ingredients created"));
         setIngredients(true)
-        console.log("ingredients created");
         if (videoRef.current && photoRef.current) {
             videoRef.current.style.display = 'none';
             photoRef.current.style.display = 'block';
@@ -59,9 +58,8 @@ const Camera = () => {
         let photoCurrent = photoRef.current;
         let ctx = photoCurrent?.getContext("2d");
         ctx?.clearRect(0, 0, photoCurrent.width, photoCurrent.height);
-        del("ingredients");
+        del("ingredients").then(() => console.log("ingredients cleared"));
         setIngredients(false);
-        console.log("ingredients cleared");
         if (videoRef.current && photoRef.current) {
             videoRef.current.style.display = 'block';
             photoRef.current.style.display = 'none';
@@ -79,13 +77,13 @@ const Camera = () => {
                 {videoRef && <video
                     playsInline
                     autoPlay
-                    className="border-white rounded-full border-8 h-[300px] w-[300px]"
+                    className="border-white rounded-full border-8 aspect-square w-[300px]"
                     ref={videoRef}>
                 </video>}
             </div>
             <div className="mx-auto">
                 {photoRef && <canvas
-                    className="border-white hidden border-8 h-[300px] w-[300px]"
+                    className="border-white hidden border-8 aspect-square w-[300px]"
                     ref={photoRef}>
                 </canvas>}
             </div>
@@ -97,7 +95,7 @@ const Camera = () => {
                 }
                 {ingredients == true &&
                     <Button className="w-fit">
-                        <Link href="/">
+                        <Link href="/result">
                             Next
                         </Link>
                     </Button>

@@ -45,9 +45,8 @@ const Camera = () => {
     photo.height = height;
     ctx?.drawImage(video, 0, 0, photo.width, photo.height);
     let data = photo.toDataURL("image/png");
-    set("selfie", data);
+    set("selfie", data).then(() => console.log("selfie created"));
     setSelfie(true)
-    console.log("selfie created");
     if (videoRef.current && photoRef.current) {
       videoRef.current.style.display = 'none';
       photoRef.current.style.display = 'block';
@@ -59,9 +58,8 @@ const Camera = () => {
     let photoCurrent = photoRef.current;
     let ctx = photoCurrent?.getContext("2d");
     ctx?.clearRect(0, 0, photoCurrent.width, photoCurrent.height);
-    del("selfie");
+    del("selfie").then(() => console.log("selfie cleared"));
     setSelfie(false);
-    console.log("selfie cleared");
     if (videoRef.current && photoRef.current) {
       videoRef.current.style.display = 'block';
       photoRef.current.style.display = 'none';
@@ -79,13 +77,13 @@ const Camera = () => {
         {videoRef && <video
           playsInline
           autoPlay
-          className="border-white rounded-full border-8 h-[300px] w-[300px]"
+          className="border-white rounded-full border-8 aspect-square w-[300px]"
           ref={videoRef}>
         </video>}
       </div>
       <div className="mx-auto">
         {photoRef && <canvas
-          className="border-white hidden border-8 h-[300px] w-[300px]"
+          className="border-white hidden border-8 aspect-square h-[300px] w-[300px]"
           ref={photoRef}>
         </canvas>}
       </div>
