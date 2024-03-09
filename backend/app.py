@@ -29,7 +29,7 @@ def handle_user_input():
 
     if food_category == 'Unable to identify the food category':
         return {
-            'food_category': food_category,
+            'food_category': food_category + ". Please try again!",
             'transformed_photo': sad_cat_base64_str
         }
 
@@ -38,9 +38,11 @@ def handle_user_input():
 
     # Convert the transformed photo to a base64 string to send back to the frontend
     transformed_photo = image_to_base64('transformed_user_photo.png')
+
+    final_response = select_food_category_response(food_category)
     
     response = {
-        'food_category': food_category,
+        'food_category': final_response,
         'transformed_photo': transformed_photo
     }
 
@@ -67,3 +69,25 @@ def image_to_base64(image_path: str):
     base64_str = base64.b64encode(img_bytes).decode('utf-8')
 
     return 'data:image/png;base64,' + base64_str
+
+def select_food_category_response(food_category: str):
+    if food_category == 'Ultra-Processed Foods':
+        return """
+        Ultra-Processed Food Detected!
+        Yikes! 😳  That photo looks like a horror movie poster! Let's get you back on track with some nutrient-dense, whole foods that'll make your body feel like a million bucks!"""
+    elif food_category == 'Processed Culinary Ingredients':
+        return """
+        Processed Culinary Ingredient Detected!
+        Hmm… 🤔 The photo looks decent, but let's explore some fresher options too! 
+        """
+    elif food_category == 'Processed Foods':
+        return """
+        Processed Food Detected!
+        Hmm… 🤔 The photo looks decent, but let's explore some fresher options too!
+        """
+    else:
+        return """
+        Unprocessed/Minimally Processed Food Detected!
+        Woohoo! 🥳 You're glowing like a radiant sunbeam! Keep fuelling your body with those wholesome, minimally processed gems, and you'll be unstoppable!
+        """
+    
