@@ -14,11 +14,12 @@ model = FoodImageClassifier()
 def handle_user_input():
     data = request.get_json()
 
-    # base_64_to_image(data, 'user_photo')
+    base_64_to_image(data, 'user_photo')
     base_64_to_image(data, 'ingredients_photo')
 
     food_category = model.predict('ingredients_photo.png')
-    transformed_photo = data['ingredients_photo']
+
+    transformed_photo = image_to_base64('user_photo.png')
     
     # Change to StabilityAI model
     # transformed_photo = model.predict(food_category, good_counter, bad_counter, attempts_counter)
@@ -29,6 +30,7 @@ def handle_user_input():
     }
 
     return response, 200
+
 
 
 
@@ -43,3 +45,10 @@ def base_64_to_image(data: dict, key: str):
     with open(key + '.png', 'wb') as f:
         f.write(img_data)
 
+def image_to_base64(image_path: str):
+    with open(image_path, 'rb') as img_file:
+        img_bytes = img_file.read()
+
+    base64_str = base64.b64encode(img_bytes).decode('utf-8')
+
+    return 'data:image/jpeg;base64,' + base64_str
