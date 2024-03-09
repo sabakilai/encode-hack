@@ -83,12 +83,12 @@ const Camera = () => {
 
 
     const fetchIngredients = async () => {
-        console.log(process.env)
+        console.log(process.env.AUTHENTICATION_TOKEN)
         const res = await fetch('http://127.0.0.1:5000/userInput', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-access-token': process.env.AUTHENTICATION_TOKEN!,
+                'x-access-token': "QlMSZXXye5hptmHn9EavUiI20YCdn6",
             },
             body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
         });
@@ -120,7 +120,7 @@ const Camera = () => {
                 }
                 {ingredients != "" &&
                     <Button size="lg_icon">
-                        <Link href="/result" onClick={() => fetchIngredients}>
+                        <Link href="/result" onClick={() => fetchIngredients()}>
                             <IoCheckmarkDoneCircleOutline size={60} />
                         </Link>
                     </Button>

@@ -10,10 +10,10 @@ const ResultPage = () => {
     const photoRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
-        getMany(["transformed_photo", "food_category"]).then(([transformed_photo, foodCategory]) => {
+        get("response").then((data) => {
             const photo = photoRef.current;
-            setTransformedPhoto(transformed_photo);
-            setFoodCategory(foodCategory);
+            setTransformedPhoto(data.transformed_photo);
+            setFoodCategory(data.food_category);
             if (!photo || !transformedPhoto) return;
             const ctx = photo.getContext("2d");
             const image = new Image();
