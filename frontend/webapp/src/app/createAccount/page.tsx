@@ -46,7 +46,7 @@ const Camera = () => {
 
   const handleTakePhoto = useCallback(() => {
     if (!videoRef.current || !photoRef.current) return;
-    const width = 300;
+    const width = 512;
     const height = width / (1 / 1);
     let photo = photoRef.current;
     let video = videoRef.current;
