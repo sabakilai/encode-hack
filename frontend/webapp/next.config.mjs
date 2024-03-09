@@ -16,6 +16,9 @@ const withPWA = nextPWA({
 
 const nextConfig = {
 	reactStrictMode: true,
+	env: {
+		AUTHENTICATION_TOKEN: process.env.AUTHENTICATION_TOKEN,
+	},
 };
 
 export default withPWA(nextConfig);

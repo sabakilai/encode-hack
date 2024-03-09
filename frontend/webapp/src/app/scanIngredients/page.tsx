@@ -83,12 +83,11 @@ const Camera = () => {
 
 
     const fetchIngredients = async () => {
-        console.log(process.env.AUTHENTICATION_TOKEN)
         const res = await fetch('http://127.0.0.1:5000/userInput', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-access-token': "QlMSZXXye5hptmHn9EavUiI20YCdn6",
+                'x-access-token': process.env.AUTHENTICATION_TOKEN!,
             },
             body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
         });
