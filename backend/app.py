@@ -3,13 +3,14 @@ import base64
 from ocr_nova import FoodImageClassifier
 import imghdr
 from flask_cors import CORS
- 
+from controller_auth_guard import controller_auth_guard
 
 app = Flask(__name__)
 CORS(app)
 model = FoodImageClassifier()
 
 @app.post('/userInput')
+@controller_auth_guard
 def handle_user_input():
     data = request.get_json()
 
