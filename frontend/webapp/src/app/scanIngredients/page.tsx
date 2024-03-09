@@ -34,7 +34,7 @@ const Camera = () => {
         const height = width;
 
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { width, height, facingMode: "user" }, audio: false });
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { width, height, facingMode: "environment" }, audio: false });
             if (!videoRef.current) return;
             let video = videoRef.current;
             video.srcObject = stream;
