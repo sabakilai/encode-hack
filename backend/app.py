@@ -20,10 +20,11 @@ def handle_user_input():
     base_64_to_image(data, 'user_photo')
     base_64_to_image(data, 'ingredients_photo')
 
+    # First model extracts the food category from the ingredients photo and 
+    # passes it to the second model to generate the food category
     food_category = model.predict('ingredients_photo.png')
 
-    print(food_category)
-
+    # Handle when the first model is unable to identify the food category
     sad_cat_base64_str = Path('sad_cat.rtf').read_text()  
 
     if food_category == 'Unable to identify the food category':
@@ -32,8 +33,10 @@ def handle_user_input():
             'transformed_photo': sad_cat_base64_str
         }
 
+    # Third model generates the transformed photo based on the user photo and the food category
     art_generation("user_photo.png", category=food_category)
 
+    # Convert the transformed photo to a base64 string to send back to the frontend
     transformed_photo = image_to_base64('transformed_user_photo.png')
     
     response = {
