@@ -5,6 +5,7 @@ import imghdr
 from flask_cors import CORS
 from controller_auth_guard import controller_auth_guard
 from pathlib import Path
+from gen_art import art_generation
 
 app = Flask(__name__)
 CORS(app)
@@ -27,12 +28,10 @@ def handle_user_input():
             'food_category': food_category,
             'transformed_photo': sad_cat_base64_str
         }
-    # Change to StabilityAI model
-    # model.predict(user_photo.png, food_category)
+
+    art_generation("user_photo.png", category=food_category)
 
     transformed_photo = image_to_base64('user_photo.png')
-    
-    
     
     response = {
         'food_category': food_category,

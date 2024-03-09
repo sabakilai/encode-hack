@@ -11,3 +11,4 @@ dist/
 .venv/
 ingredients_photo.png
 user_photo.png
+transformed_user_photo.png
