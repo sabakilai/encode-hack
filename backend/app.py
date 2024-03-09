@@ -2,9 +2,11 @@ from flask import Flask, request
 import base64
 from ocr_nova import FoodImageClassifier
 import imghdr
+from flask_cors import CORS
  
 
 app = Flask(__name__)
+CORS(app)
 model = FoodImageClassifier()
 
 @app.post('/userInput')
@@ -16,7 +18,6 @@ def handle_user_input():
     base_64_to_image(data, 'user_photo')
     base_64_to_image(data, 'ingredients_photo')
     
-
     return model.predict('ingredients_photo.png'), 200
 
 
