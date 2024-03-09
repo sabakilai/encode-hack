@@ -78,6 +78,16 @@ const Camera = () => {
 
   useEffect(() => {
     getUserCamera();
+    return () => {
+      if (videoRef.current) {
+        const mediaStream = videoRef.current.srcObject as MediaStream;
+        if (mediaStream instanceof MediaStream) {
+          mediaStream.getTracks().forEach((track) => {
+            track.stop();
+          });
+        }
+      }
+    }
   }, [videoRef]);
 
   return (
