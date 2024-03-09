@@ -2,8 +2,6 @@ import base64
 import os
 import requests
 
-YOUR_API_KEY="sk-MX3RBYmI6pabIkkDCrZEW56SWS2PJiZRBONnkcCiXxS6T0VQ"
-
 def art_generation(input_img_path, category):
     pos_weight = 10
     neg_weight = 0
@@ -14,7 +12,7 @@ def art_generation(input_img_path, category):
         "https://api.stability.ai/v1/generation/stable-diffusion-v1-6/image-to-image",
         headers={
             "Accept": "application/json",
-            "Authorization": f"Bearer {YOUR_API_KEY}"
+            "Authorization": f"Bearer {os.getenv('STABILITY_KEY')}"
         },
         files={
             "init_image": open(input_img_path, "rb")
@@ -40,7 +38,6 @@ def art_generation(input_img_path, category):
     data = response.json()
     
     for i, image in enumerate(data["artifacts"]):
-        #with open(f'./gen_art/{input_img_path.split(".")[0]}_{image["seed"]}.{input_img_path.split(".")[1]}', "wb") as f:
         with open(f'./transformed_{input_img_path.split(".")[0]}.{input_img_path.split(".")[1]}', "wb") as f:
             f.write(base64.b64decode(image["base64"]))
 
