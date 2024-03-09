@@ -34,10 +34,10 @@ export default function Home() {
     <main className="flex min-h-svh flex-col items-center justify-evenly p-6 relative overflow-hidden ">
       <div className="space-y-16 h-full z-0">
         <h1 className="text-right text-[2.4rem] font-bold text-pretty">
-          Hi - I'm UPF Checker
+          Hi - I&apos;m UPF Checker
         </h1>
         <div>
-          <span className="underline text-xl ">Here's how it works:</span>
+          <span className="underline text-xl ">Here&apos;s how it works:</span>
           <p className="text-pretty font-mono font-thin px-4 uppercase antialiased">
             <br />
             1. Capture a selfie of your beautiful self ✨
@@ -74,11 +74,11 @@ const LearnMore = () => {
         </DialogHeader>
         <DialogDescription asChild>
           <ScrollArea className="h-fit w-fit">
-            In the new "age of eating," most of our calories come from an entirely novel set of substances: Ultra-Processed Foods (UPFs).
+            In the new &quot;age of eating,&quot; most of our calories come from an entirely novel set of substances: Ultra-Processed Foods (UPFs).
             <br /><br />
             These industrially processed marvels are designed to be irresistible and easy to overindulge in, leading to not-so-fun consequences like addiction and overconsumption.
             <br /><br />
-            UPFs are everywhere, from your favorite ready-to-eat meals to those snack packs you can't put down, packed with sugars, salts, unhealthy fats, and additives.
+            UPFs are everywhere, from your favorite ready-to-eat meals to those snack packs you can&apos;t put down, packed with sugars, salts, unhealthy fats, and additives.
             But why does this matter? Recent studies have linked UPFs to a host of health issues, including obesity, cardiovascular diseases, and even some cancers.
             <br /><br />
             Yikes!
