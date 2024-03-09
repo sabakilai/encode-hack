@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
-import { get } from 'idb-keyval';
+import { get, set } from 'idb-keyval';
 import { Base64 } from '@/shared/types/basic';
 
 const ResultPage = () => {
@@ -11,6 +11,7 @@ const ResultPage = () => {
 
     useEffect(() => {
         get("response").then((data) => {
+            set("user_photo", data.transformed_photo);
             setTransformedPhoto(data.transformed_photo);
             setFoodCategory(data.food_category);
         }).catch((error) => {
