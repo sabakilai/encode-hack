@@ -46,7 +46,7 @@ const Camera = () => {
 
   const handleTakePhoto = useCallback(() => {
     if (!videoRef.current || !photoRef.current) return;
-    const width = 300;
+    const width = 512;
     const height = width / (1 / 1);
     let photo = photoRef.current;
     let video = videoRef.current;
@@ -86,13 +86,13 @@ const Camera = () => {
         {videoRef && <video
           playsInline
           autoPlay
-          className="border-black rounded-lg border-8"
+          className="border-black rounded-lg border-8 aspect-square w-[340px]"
           ref={videoRef}>
         </video>}
       </div>
       <div className="mx-auto">
         {photoRef && <canvas
-          className="border-black hidden rounded-lg border-8 aspect-square"
+          className="border-black hidden rounded-lg border-8 aspect-square w-[340px]"
           ref={photoRef}>
         </canvas>}
       </div>

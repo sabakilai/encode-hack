@@ -5,19 +5,18 @@ import { get, set } from 'idb-keyval';
 import { Base64 } from '@/shared/types/basic';
 
 const ResultPage = () => {
-    const [transformedPhoto, setTransformedPhoto] = useState<Base64>("");
-    const [foodCategory, setFoodCategory] = useState<Base64>("");
     const photoRef = useRef<HTMLCanvasElement>(null);
 
-    useEffect(() => {
-        get("response").then((data) => {
-            set("user_photo", data.transformed_photo);
-            setTransformedPhoto(data.transformed_photo);
-            setFoodCategory(data.food_category);
-        }).catch((error) => {
-            console.error("Error reading from IndexedDB", error);
-        });
-    }, []);
+    const [transformedPhoto, setTransformedPhoto] = useState<Base64>("");
+    const [foodCategory, setFoodCategory] = useState<Base64>("");
+
+    get("response").then((data) => {
+        set("user_photo", data.transformed_photo);
+        setTransformedPhoto(data.transformed_photo);
+        setFoodCategory(data.food_category);
+    }).catch((error) => {
+        console.error("Error reading from IndexedDB", error);
+    });
 
     useEffect(() => {
         const photo = photoRef.current;
