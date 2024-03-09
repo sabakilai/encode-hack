@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Base64 } from "@/shared/types/basic";
 
 import { IoCameraOutline, IoCheckmarkDoneCircleOutline, IoRefreshCircleOutline } from "react-icons/io5";
+import { env } from "process";
 
 const CreateAccountPage = () => {
     return (
@@ -82,10 +83,12 @@ const Camera = () => {
 
 
     const fetchIngredients = async () => {
+        console.log(process.env)
         const res = await fetch('http://127.0.0.1:5000/userInput', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'x-access-token': process.env.AUTHENTICATION_TOKEN!,
             },
             body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
         });
