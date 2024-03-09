@@ -4,6 +4,7 @@ from ocr_nova import FoodImageClassifier
 import imghdr
 from flask_cors import CORS
 from controller_auth_guard import controller_auth_guard
+from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)
@@ -19,10 +20,19 @@ def handle_user_input():
 
     food_category = model.predict('ingredients_photo.png')
 
+    sad_cat_base64_str = Path('sad_cat.rtf').read_text()  
+
+    if food_category == 'Unable to identify the food category':
+        return {
+            'food_category': food_category,
+            'transformed_photo': sad_cat_base64_str
+        }
+    # Change to StabilityAI model
+    # model.predict(user_photo.png, food_category)
+
     transformed_photo = image_to_base64('user_photo.png')
     
-    # Change to StabilityAI model
-    # transformed_photo = model.predict(food_category, good_counter, bad_counter, attempts_counter)
+    
     
     response = {
         'food_category': food_category,
