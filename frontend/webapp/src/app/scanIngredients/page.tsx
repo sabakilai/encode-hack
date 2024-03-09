@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useCallback, useState } from "react";
 import { set, get, update, del } from 'idb-keyval';
 import { Button } from "@/shared/ui";
 import Link from "next/link";
-import { POST } from "../api/route";
+// import { POST } from "../api/route";
 import { Base64 } from "@/shared/types/basic";
 
 const CreateAccountPage = () => {
@@ -74,6 +74,18 @@ const Camera = () => {
         getUserCamera();
     }, [videoRef]);
 
+    const fetchIngredients = async () => {
+        const res = await fetch('http://127.0.0.1:5000/userInput', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
+        });
+        const data = await res.text();
+        set("response", data);
+    }
+
     return (
         <div className="flex flex-col relative">
             <div className="py-4"></div>
@@ -99,7 +111,7 @@ const Camera = () => {
                 }
                 {ingredients !== "" &&
                     <Button className="w-fit">
-                        <Link href="/result" onClick={() => POST(selfie, ingredients)}>
+                        <Link href="/result" onClick={() => fetchIngredients}>
                             Next
                         </Link>
                     </Button>
