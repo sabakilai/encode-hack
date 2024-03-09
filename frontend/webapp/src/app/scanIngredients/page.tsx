@@ -4,13 +4,17 @@ import React, { useEffect, useRef, useCallback, useState } from "react";
 import { set, get, update, del } from 'idb-keyval';
 import { Button } from "@/shared/ui";
 import Link from "next/link";
-import { POST } from "../api/route";
+
 import { Base64 } from "@/shared/types/basic";
+
+import { IoCameraOutline, IoCheckmarkDoneCircleOutline, IoRefreshCircleOutline } from "react-icons/io5";
+import { env } from "process";
 
 const CreateAccountPage = () => {
     return (
-        <main className="flex min-h-svh flex-col bg-gradient-to-t from-indigo-300 via-pink-200 p-12">
-            <h1 className="text-2xl font-bold">Scan Ingredients</h1>
+        <main className="flex min-h-svh flex-col p-6">
+            <h1 className="text-2xl uppercase text-right">scan ingredients</h1>
+            <div className="py-4"></div>
             <Camera />
         </main>
     );
@@ -25,16 +29,18 @@ const Camera = () => {
     const photoRef = useRef<HTMLCanvasElement>(null);
 
     const getUserCamera = async () => {
-        navigator.mediaDevices.getUserMedia({ video: { width: 300, height: 300, facingMode: "environment" }, audio: false })
-            .then((stream) => {
-                if (!videoRef.current) return
-                let video = videoRef.current;
-                video.srcObject = stream;
-                video.play().catch((err) => console.error("Error playing video:", err));
-            })
-            .catch((err) => {
-                console.error("Error accessing the camera", err);
-            });
+        const width = 512;
+        const height = width;
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { width, height, facingMode: "user" }, audio: false });
+            if (!videoRef.current) return;
+            let video = videoRef.current;
+            video.srcObject = stream;
+            video.play().catch((err) => console.error("Error playing video:", err));
+        } catch (err) {
+            console.error("Error accessing the camera", err);
+        }
     }
 
     const handleTakePhoto = useCallback(() => {
@@ -74,37 +80,53 @@ const Camera = () => {
         getUserCamera();
     }, [videoRef]);
 
+
+
+    const fetchIngredients = async () => {
+        console.log(process.env)
+        const res = await fetch('http://127.0.0.1:5000/userInput', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': process.env.AUTHENTICATION_TOKEN!,
+            },
+            body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
+        });
+        const data = await res.json();
+        set("response", data);
+    }
+
     return (
-        <div className="flex flex-col relative">
-            <div className="py-4"></div>
+        <div className="flex flex-col relative justify-evenly my-auto">
             <div className="flex justify-center">
                 {videoRef && <video
                     playsInline
                     autoPlay
-                    className="border-white rounded-full border-8 aspect-square w-[300px]"
+                    className="border-black rounded-lg border-8"
                     ref={videoRef}>
                 </video>}
             </div>
             <div className="mx-auto">
                 {photoRef && <canvas
-                    className="border-white hidden border-8 aspect-square w-[300px]"
+                    className="border-black hidden rounded-lg border-8 aspect-square"
                     ref={photoRef}>
                 </canvas>}
             </div>
-            <div className="py-12"></div>
+            <div className="py-4"></div>
             <div className="flex w-full mb-8 justify-evenly">
                 {ingredients == "" ?
-                    (<Button onClick={handleTakePhoto}>Take photo</Button>) :
-                    (<Button onClick={handleClearPhoto}>Clear photo</Button>)
+                    (<Button size="lg_icon" variant="secondary" onClick={handleTakePhoto}><IoCameraOutline size={60} /></Button>) :
+                    (<Button size="lg_icon" variant="destructive" onClick={handleClearPhoto}><IoRefreshCircleOutline size={60} /></Button>)
                 }
-                {ingredients !== "" &&
-                    <Button className="w-fit">
-                        <Link href="/result" onClick={() => POST(selfie, ingredients)}>
-                            Next
+                {ingredients != "" &&
+                    <Button size="lg_icon">
+                        <Link href="/result" onClick={() => fetchIngredients}>
+                            <IoCheckmarkDoneCircleOutline size={60} />
                         </Link>
                     </Button>
                 }
             </div>
+            <div className="py-12"></div>
         </div >
     )
 }
