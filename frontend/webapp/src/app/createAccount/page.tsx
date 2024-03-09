@@ -86,13 +86,13 @@ const Camera = () => {
         {videoRef && <video
           playsInline
           autoPlay
-          className="border-black rounded-lg border-8"
+          className="frame"
           ref={videoRef}>
         </video>}
       </div>
       <div className="mx-auto">
         {photoRef && <canvas
-          className="border-black hidden rounded-lg border-8 aspect-square"
+          className="frame hidden"
           ref={photoRef}>
         </canvas>}
       </div>

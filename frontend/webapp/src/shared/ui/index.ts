@@ -46,3 +46,4 @@ export { Label } from "./label";
 export { ScrollArea, ScrollBar } from "./scroll-area";
 
 export { Emoji } from "./emoji";
+export { Progress } from "./progress";

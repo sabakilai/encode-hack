@@ -1,14 +1,13 @@
 'use client';
 
 import React, { useEffect, useRef, useCallback, useState } from "react";
-import { set, get, update, del } from 'idb-keyval';
-import { Button } from "@/shared/ui";
-import Link from "next/link";
+import { set, get, del } from 'idb-keyval';
+import { Button, Progress } from "@/shared/ui";
+import { useRouter } from "next/navigation";
 
 import { Base64 } from "@/shared/types/basic";
 
 import { IoCameraOutline, IoCheckmarkDoneCircleOutline, IoRefreshCircleOutline } from "react-icons/io5";
-import { env } from "process";
 
 const CreateAccountPage = () => {
     return (
@@ -23,6 +22,8 @@ const CreateAccountPage = () => {
 export default CreateAccountPage;
 
 const Camera = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const router = useRouter();
     const [selfie, setSelfie] = useState<Base64>("");
     const [ingredients, setIngredients] = useState<Base64>("");
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -76,13 +77,8 @@ const Camera = () => {
         }
     }, [photoRef]);
 
-    useEffect(() => {
-        getUserCamera();
-    }, [videoRef]);
-
-
-
     const fetchIngredients = async () => {
+        setIsLoading(true);
         const res = await fetch('http://127.0.0.1:5000/userInput', {
             method: 'POST',
             headers: {
@@ -92,40 +88,80 @@ const Camera = () => {
             body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
         });
         const data = await res.json();
-        set("response", data);
+        set("response", data).finally(() => router.push('/result'));
     }
+
+    const [progress, setProgress] = useState<number>(0);
+
+    useEffect(() => {
+        if (isLoading) {
+            const interval = setInterval(() => {
+                setProgress((prevProgress) => {
+                    const newProgress = prevProgress + 10;
+                    if (newProgress === 100) {
+                        clearInterval(interval);
+                    }
+                    return newProgress;
+                });
+            }, 700);
+
+            return () => {
+                clearInterval(interval);
+            };
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
+        getUserCamera();
+    }, [videoRef]);
 
     return (
         <div className="flex flex-col relative justify-evenly my-auto">
-            <div className="flex justify-center">
-                {videoRef && <video
-                    playsInline
-                    autoPlay
-                    className="border-black rounded-lg border-8"
-                    ref={videoRef}>
-                </video>}
-            </div>
-            <div className="mx-auto">
-                {photoRef && <canvas
-                    className="border-black hidden rounded-lg border-8 aspect-square"
-                    ref={photoRef}>
-                </canvas>}
-            </div>
-            <div className="py-4"></div>
-            <div className="flex w-full mb-8 justify-evenly">
-                {ingredients == "" ?
-                    (<Button size="lg_icon" variant="secondary" onClick={handleTakePhoto}><IoCameraOutline size={60} /></Button>) :
-                    (<Button size="lg_icon" variant="destructive" onClick={handleClearPhoto}><IoRefreshCircleOutline size={60} /></Button>)
-                }
-                {ingredients != "" &&
-                    <Button size="lg_icon">
-                        <Link href="/result" onClick={() => fetchIngredients()}>
-                            <IoCheckmarkDoneCircleOutline size={60} />
-                        </Link>
-                    </Button>
-                }
-            </div>
+            {isLoading == true ?
+                <div>
+                    <Progress value={progress} />
+                </div> :
+                <>
+                    <div className="flex justify-center">
+                        {videoRef &&
+                            <video
+                                playsInline
+                                autoPlay
+                                className="frame"
+                                ref={videoRef}>
+                            </video>
+                        }
+                    </div>
+                    <div className="mx-auto">
+                        {photoRef &&
+                            <canvas
+                                className="frame hidden"
+                                ref={photoRef}>
+                            </canvas>
+                        }
+                    </div>
+                    <div className="py-4"></div>
+                    <div className="flex w-full mb-8 justify-evenly">
+                        {ingredients == "" ?
+                            (
+                                <Button size="lg_icon" variant="secondary" onClick={handleTakePhoto}>
+                                    <IoCameraOutline size={60} />
+                                </Button>
+                            ) : (
+                                <Button size="lg_icon" variant="destructive" onClick={handleClearPhoto}>
+                                    <IoRefreshCircleOutline size={60} />
+                                </Button>
+                            )}
+                        {ingredients != "" &&
+                            <Button size="lg_icon" onClick={() => fetchIngredients()}>
+                                <IoCheckmarkDoneCircleOutline size={60} />
+                            </Button>
+                        }
+                    </div>
+                </>
+            }
             <div className="py-12"></div>
-        </div >
+        </div>
     )
+
 }
