@@ -31,22 +31,22 @@ export default function Home() {
   }, [router]);
 
   return (
-    <main className="flex min-h-svh flex-col items-center justify-evenly p-6 relative overflow-hidden antialiased">
+    <main className="flex min-h-svh flex-col items-center justify-evenly p-6 relative overflow-hidden ">
       <div className="space-y-16 h-full z-0">
-        <h1 className="text-right text-7xl font-bold">
-          FC
-          <br />
-          APP
+        <h1 className="text-right text-[2.4rem] font-bold text-pretty">
+          Hi - I'm UPF Checker
         </h1>
-        <p className="text-center font-mono text-3xl font-thin">
-          <span className="underline">A simple way to</span>
-          <br />
-          keep track your food
-          <br />
-          and make sure
-          <br />
-          about sexy future
-        </p>
+        <div>
+          <span className="underline text-xl ">Here's how it works:</span>
+          <p className="text-pretty font-mono font-thin px-4 uppercase antialiased">
+            <br />
+            1. Capture a selfie of your beautiful self ✨
+            <br />
+            2. Snap a photo of the ingredients label on your favorite snack 🍔
+            <br />
+            3. Let our AI transform your selfie showing the impact of your food choice 🚀
+          </p>
+        </div>
       </div>
       <LearnMore />
       <div className="h-full">
@@ -70,58 +70,18 @@ const LearnMore = () => {
       </DialogTrigger>
       <DialogContent className="p-8">
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>What is UPF?</DialogTitle>
         </DialogHeader>
         <DialogDescription asChild>
-          <ScrollArea className="h-[80svh] w-full">
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
+          <ScrollArea className="h-fit w-fit">
+            In the new "age of eating," most of our calories come from an entirely novel set of substances: Ultra-Processed Foods (UPFs).
+            <br /><br />
+            These industrially processed marvels are designed to be irresistible and easy to overindulge in, leading to not-so-fun consequences like addiction and overconsumption.
+            <br /><br />
+            UPFs are everywhere, from your favorite ready-to-eat meals to those snack packs you can't put down, packed with sugars, salts, unhealthy fats, and additives.
+            But why does this matter? Recent studies have linked UPFs to a host of health issues, including obesity, cardiovascular diseases, and even some cancers.
+            <br /><br />
+            Yikes!
           </ScrollArea>
         </DialogDescription>
       </DialogContent>
