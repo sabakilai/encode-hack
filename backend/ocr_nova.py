@@ -27,6 +27,7 @@ class FoodImageClassifier(object):
 	def predict(self, photo_path):
 		"""function expects a fhoto as an input and return NOVA category string"""
 		ingredients = str(self.reader.readtext(photo_path, detail = 0))
+		print(ingredients)
 		response = self.client.completions.create(
         		model="gpt-3.5-turbo-instruct",
         		prompt=self.zero_shot_prompt.replace('PRODUCT_INGREDIENTS', ingredients),

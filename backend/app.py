@@ -16,10 +16,13 @@ model = FoodImageClassifier()
 def handle_user_input():
     data = request.get_json()
 
+    # Convert base64 strings to images to pass to the models
     base_64_to_image(data, 'user_photo')
     base_64_to_image(data, 'ingredients_photo')
 
     food_category = model.predict('ingredients_photo.png')
+
+    print(food_category)
 
     sad_cat_base64_str = Path('sad_cat.rtf').read_text()  
 
@@ -31,7 +34,7 @@ def handle_user_input():
 
     art_generation("user_photo.png", category=food_category)
 
-    transformed_photo = image_to_base64('user_photo.png')
+    transformed_photo = image_to_base64('transformed_user_photo.png')
     
     response = {
         'food_category': food_category,
@@ -60,4 +63,4 @@ def image_to_base64(image_path: str):
 
     base64_str = base64.b64encode(img_bytes).decode('utf-8')
 
-    return 'data:image/jpeg;base64,' + base64_str
+    return 'data:image/png;base64,' + base64_str
