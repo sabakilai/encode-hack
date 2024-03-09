@@ -18,7 +18,7 @@ def handle_user_input():
     base_64_to_image(data, 'ingredients_photo')
 
     food_category = model.predict('ingredients_photo.png')
-    transformed_photo = data['user_photo']
+    transformed_photo = data['ingredients_photo']
     
     # Change to StabilityAI model
     # transformed_photo = model.predict(food_category, good_counter, bad_counter, attempts_counter)
