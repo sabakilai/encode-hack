@@ -28,7 +28,7 @@ export default function Home() {
         router.push('/scanIngredients');
       }
     });
-  }, []);
+  }, [router]);
 
   return (
     <main className="flex min-h-svh flex-col items-center justify-evenly p-6 relative overflow-hidden antialiased">

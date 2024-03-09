@@ -46,7 +46,7 @@ const ResultPage = () => {
                 <div className="py-4"></div>
                 <div className='px-6'>
                     <div>
-                        <h2 className='font-mono uppercase'>food category:</h2>
+                        {/* <h2 className='font-mono uppercase'>food category:</h2> */}
                         <p className="uppercase">{foodCategory}</p>
                     </div>
                 </div>
