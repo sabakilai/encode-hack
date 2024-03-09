@@ -42,3 +42,7 @@ export {
   FormField,
 } from "./form";
 export { Label } from "./label";
+
+export { ScrollArea, ScrollBar } from "./scroll-area";
+
+export { Emoji } from "./emoji";

@@ -1,14 +1,22 @@
 'use client';
 
 import React, { useEffect, useRef, useCallback, useState } from "react";
-import { set, get, update, del } from 'idb-keyval';
+import { set, del } from 'idb-keyval';
 import { Button } from "@/shared/ui";
 import Link from "next/link";
 
+import {
+  IoCameraOutline,
+  IoRefreshCircleOutline,
+  IoCheckmarkDoneCircleOutline
+} from "react-icons/io5";
+
+
 const CreateAccountPage = () => {
   return (
-    <main className="flex min-h-svh flex-col bg-gradient-to-t from-indigo-300 via-pink-200 p-12">
-      <h1 className="text-2xl font-bold">Create Account</h1>
+    <main className="flex flex-col min-h-svh p-6">
+      <h1 className="text-2xl uppercase text-right">create account</h1>
+      <div className="py-4"></div>
       <Camera />
     </main>
   );
@@ -22,16 +30,18 @@ const Camera = () => {
   const photoRef = useRef<HTMLCanvasElement>(null);
 
   const getUserCamera = async () => {
-    navigator.mediaDevices.getUserMedia({ video: { width: 300, height: 300 }, audio: false })
-      .then((stream) => {
-        if (!videoRef.current) return
-        let video = videoRef.current;
-        video.srcObject = stream;
-        video.play().catch((err) => console.error("Error playing video:", err));
-      })
-      .catch((err) => {
-        console.error("Error accessing the camera", err);
-      });
+    const width = 512;
+    const height = width;
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { width, height, facingMode: "user" }, audio: false });
+      if (!videoRef.current) return;
+      let video = videoRef.current;
+      video.srcObject = stream;
+      video.play().catch((err) => console.error("Error playing video:", err));
+    } catch (err) {
+      console.error("Error accessing the camera", err);
+    }
   }
 
   const handleTakePhoto = useCallback(() => {
@@ -71,39 +81,36 @@ const Camera = () => {
   }, [videoRef]);
 
   return (
-    <div className="flex flex-col relative">
-      <div className="py-4"></div>
-      <div className="flex justify-center">
+    <div className="flex flex-col relative justify-evenly my-auto">
+      <div className="flex justify-center z-0">
         {videoRef && <video
           playsInline
           autoPlay
-          className="border-white rounded-full border-8 aspect-square w-[300px]"
+          className="border-black rounded-lg border-8"
           ref={videoRef}>
         </video>}
       </div>
       <div className="mx-auto">
         {photoRef && <canvas
-          className="border-white hidden border-8 aspect-square h-[300px] w-[300px]"
+          className="border-black hidden rounded-lg border-8 aspect-square"
           ref={photoRef}>
         </canvas>}
       </div>
       <div className="py-4"></div>
       <div className="flex w-full mb-8 justify-evenly">
         {selfie == false ?
-          (<Button onClick={handleTakePhoto}>Take photo</Button>) :
-          (<Button variant={"destructive"} onClick={handleClearPhoto}>Clear photo</Button>)
+          (<Button size="lg_icon" variant="secondary" onClick={handleTakePhoto}><IoCameraOutline size={60} /></Button>) :
+          (<Button size="lg_icon" variant="destructive" onClick={handleClearPhoto}><IoRefreshCircleOutline size={60} /></Button>)
         }
-      </div>
-      <div className="py-12"></div>
-      <div className="flex w-full justify-center">
         {selfie == true &&
-          <Button className="w-fit">
+          <Button size="lg_icon">
             <Link href="/scanIngredients">
-              Next
+              <IoCheckmarkDoneCircleOutline size={60} />
             </Link>
           </Button>
         }
       </div>
+      <div className="py-12"></div>
     </div>
   )
 }

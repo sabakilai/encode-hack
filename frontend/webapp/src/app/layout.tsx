@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "./globals.css";
 import ContextProviders from "./providers";
 
@@ -48,7 +48,7 @@ export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };
 
-const inter = Inter({ subsets: ["latin"] });
+const kanit = Kanit({ weight: "400", subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -57,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={kanit.className}>
         <ContextProviders>{children}</ContextProviders>
       </body>
     </html>

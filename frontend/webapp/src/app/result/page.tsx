@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
-import { get } from 'idb-keyval';
+import { get, getMany } from 'idb-keyval';
 import { Base64 } from '@/shared/types/basic';
 
 const ResultPage = () => {
@@ -10,44 +10,46 @@ const ResultPage = () => {
     const photoRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
-        get("selfie").then((data) => {
-            setSelfie(data);
-        }).finally(() => {
-            if (!selfie) return;
+        getMany(["selfie", "food_category"]).then(([selfie, foodCategory]) => {
             const photo = photoRef.current;
-            if (!photo) return; // Add this line to check if photo is not null
+            setSelfie(selfie);
+            setFoodCategory(foodCategory);
+            if (!photo || !selfie) return;
             const ctx = photo.getContext("2d");
             const image = new Image();
             image.src = selfie;
             image.onload = () => {
                 photo.width = 300;
                 photo.height = 300;
-                if (ctx) { // Check if ctx is not null before calling drawImage
-                    ctx.drawImage(image, 0, 0, photo.width, photo.height);
-                }
+                if (ctx) ctx.drawImage(image, 0, 0, photo.width, photo.height);
             }
             if (photoRef.current) photoRef.current.style.display = 'block';
         });
-
-        get("response").then((data) => {
-            setFoodCategory(data);
-        });
-
     }, [selfie, photoRef, foodCategory]);
-
+    /*
+    response = {
+        'food_category': food_category,
+        'good_counter': good_counter,
+        'bad_counter': bad_counter,
+        'attempts_counter': attempts_counter,
+        'transformed_photo': transformed_photo
+    }
+    */
     return (
-        <main className="flex min-h-svh flex-col bg-gradient-to-t from-indigo-300 via-pink-200 p-12">
-            <h1 className="text-2xl font-bold">Result</h1>
-            <div>
-                <div className="mx-auto">
-                    {photoRef && <canvas
-                        className="border-white hidden border-8 aspect-square w-[300px]"
-                        ref={photoRef}>
-                    </canvas>}
-                </div>
+        <main className="flex min-h-svh flex-col p-6">
+            <h1 className="text-2xl uppercase text-right">result</h1>
+            <div className="py-4"></div>
+            <div className='my-auto'>
+                {photoRef && <canvas
+                    className="border-black hidden border-8 aspect-square m-auto"
+                    ref={photoRef}>
+                </canvas>}
                 <div className="py-4"></div>
-                <div>
-                    <h1>{foodCategory}</h1>
+                <div className='px-6'>
+                    <div>
+                        <h2 className='font-mono uppercase'>food category:</h2>
+                        <p className="uppercase">{foodCategory}example</p>
+                    </div>
                 </div>
             </div>
         </main >
