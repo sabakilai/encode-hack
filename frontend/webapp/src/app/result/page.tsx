@@ -5,19 +5,19 @@ import { get, getMany } from 'idb-keyval';
 import { Base64 } from '@/shared/types/basic';
 
 const ResultPage = () => {
-    const [selfie, setSelfie] = useState<Base64>("");
+    const [transformedPhoto, setTransformedPhoto] = useState<Base64>("");
     const [foodCategory, setFoodCategory] = useState<Base64>("");
     const photoRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
-        getMany(["selfie", "food_category"]).then(([selfie, foodCategory]) => {
+        getMany(["transformed_photo", "food_category"]).then(([transformed_photo, foodCategory]) => {
             const photo = photoRef.current;
-            setSelfie(selfie);
+            setTransformedPhoto(transformed_photo);
             setFoodCategory(foodCategory);
-            if (!photo || !selfie) return;
+            if (!photo || !transformedPhoto) return;
             const ctx = photo.getContext("2d");
             const image = new Image();
-            image.src = selfie;
+            image.src = transformedPhoto;
             image.onload = () => {
                 photo.width = 300;
                 photo.height = 300;
@@ -25,7 +25,7 @@ const ResultPage = () => {
             }
             if (photoRef.current) photoRef.current.style.display = 'block';
         });
-    }, [selfie, photoRef, foodCategory]);
+    }, [transformedPhoto, photoRef, foodCategory]);
     /*
     response = {
         'food_category': food_category,
