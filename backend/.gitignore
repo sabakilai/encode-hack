@@ -9,5 +9,6 @@ htmlcov/
 docs/_build/
 dist/
 .venv/
+venv
 ingredients_photo.png
 user_photo.png
