@@ -3,10 +3,10 @@ import { Kanit } from "next/font/google";
 import "./globals.css";
 import ContextProviders from "./providers";
 
-const APP_NAME = "Food Checker App";
-const APP_DEFAULT_TITLE = "Food Checker";
-const APP_TITLE_TEMPLATE = "%s - FCA";
-const APP_DESCRIPTION = "Gread Food Checker App for everyone.";
+const APP_NAME = "UPF Checker";
+const APP_DEFAULT_TITLE = "UPF Checker";
+const APP_TITLE_TEMPLATE = "%s - UPFC";
+const APP_DESCRIPTION = "UPF Checker application for everyone.";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,

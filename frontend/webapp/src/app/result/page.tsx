@@ -3,8 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { get, set } from 'idb-keyval';
 import { Base64 } from '@/shared/types/basic';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/shared/ui';
+import { IoCameraOutline } from 'react-icons/io5';
 
 const ResultPage = () => {
+    const router = useRouter();
     const [transformedPhoto, setTransformedPhoto] = useState<Base64>("");
     const [foodCategory, setFoodCategory] = useState<Base64>("");
     const photoRef = useRef<HTMLCanvasElement>(null);
@@ -49,6 +53,13 @@ const ResultPage = () => {
                         {/* <h2 className='font-mono uppercase'>food category:</h2> */}
                         <p className="uppercase">{foodCategory}</p>
                     </div>
+                </div>
+                <div className="py-8"></div>
+
+                <div className="flex w-full mb-8 justify-evenly">
+                    <Button size="lg_icon" variant="secondary" onClick={() => router.push('/scanIngredients')}>
+                        <IoCameraOutline size={60} />
+                    </Button>
                 </div>
             </div>
         </main >
