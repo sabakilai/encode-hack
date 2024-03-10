@@ -22,7 +22,6 @@ const CreateAccountPage = () => {
 export default CreateAccountPage;
 
 const Camera = () => {
-    const [stream, setStream] = useState<MediaStream | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
     const [selfie, setSelfie] = useState<Base64>("");
@@ -36,7 +35,6 @@ const Camera = () => {
 
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: { width, height, facingMode: "environment" }, audio: false });
-            setStream(stream);
             if (!videoRef.current) return;
             let video = videoRef.current;
             video.srcObject = stream;
@@ -124,13 +122,17 @@ const Camera = () => {
     useEffect(() => {
         getUserCamera();
         return () => {
-            if (stream) {
-                stream.getTracks().forEach((track) => {
-                    track.stop();
-                });
+            if (videoRef.current) {
+                const mediaStream = videoRef.current.srcObject as MediaStream;
+                if (mediaStream instanceof MediaStream) {
+                    mediaStream.getTracks().forEach((track) => {
+                        track.stop();
+                    });
+                }
             }
         }
-    }, [stream]);
+
+    }, [videoRef, router]);
 
     return (
         <div className="flex flex-col relative justify-evenly my-auto">
