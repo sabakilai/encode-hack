@@ -18,7 +18,7 @@ const ResultPage = () => {
                 <div className='px-6'>
                     <div>
                         {/* <h2 className='font-mono uppercase'>food category:</h2> */}
-                        <p className="uppercase">We're working hard to deploy our backend. Please bear with us!</p>
+                        <p className="uppercase">We&apos;re working hard to deploy our backend. Please bear with us!</p>
                     </div>
                 </div>
                 <div className="py-8"></div>
