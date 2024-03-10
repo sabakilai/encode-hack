@@ -19,7 +19,7 @@ const ResultPage = () => {
             setTransformedPhoto(data.transformed_photo);
             setFoodCategory(data.food_category);
         }).catch((error) => {
-            console.error("Error reading from IndexedDB", error);
+            console.error("Error reading from DIMADEM", error);
         });
     }, []);
 
