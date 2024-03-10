@@ -40,7 +40,9 @@ const Camera = () => {
       if (!videoRef.current) return;
       let video = videoRef.current;
       video.srcObject = stream;
-      video.play().catch((err) => console.error("Error playing video:", err));
+      video.onloadeddata = () => {
+        video.play().catch((err) => console.error("Error playing video:", err));
+      }
     } catch (err) {
       console.error("Error accessing the camera", err);
     }
