@@ -6,7 +6,7 @@ See the demo **[here](https://www.youtube.com/watch?v=5Okp_ycsaE0)**!
 
 - The UPF Checker is a progressive web application that helps the user to identify the ultra-processed food and reduce its consumption by transforming the user selfie inducing the emotional response.  
 
-- Under the hood, the UPF Checker uses three models: the Optical Character Recognition model that extracts ingredients as text, the ChatGPT that identifies the food category based on extracted text using the zero-shot learning, and the Stability AI image-to-image model that user selfie using the conditional parameters based on the identified category. 
+- Under the hood, the UPF Checker uses three models: an open-source Optical Character Recognition model that extracts ingredients as text, ChatGPT that identifies the food category based on extracted text using the zero-shot learning, and Stability AI image-to-image model that user selfie using the conditional parameters based on the identified category. 
 
 ## Why it matters
 
