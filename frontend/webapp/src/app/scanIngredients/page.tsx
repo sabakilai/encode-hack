@@ -79,16 +79,24 @@ const Camera = () => {
 
     const fetchIngredients = async () => {
         setIsLoading(true);
-        const res = await fetch('http://127.0.0.1:5000/userInput', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-access-token': process.env.AUTHENTICATION_TOKEN!,
-            },
-            body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
-        });
-        const data = await res.json();
-        set("response", data).finally(() => router.push('/result'));
+        try {
+            const res = await fetch('http://127.0.0.1:5000/userInput', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': process.env.AUTHENTICATION_TOKEN!,
+                },
+                body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
+            });
+            const data = await res.json();
+            set("response", data);
+            router.push('/result');
+        } catch (error) {
+            console.error(error);
+            router.push('/errorPage');
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     const [progress, setProgress] = useState<number>(0);
