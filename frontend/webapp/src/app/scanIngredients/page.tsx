@@ -120,10 +120,11 @@ const Camera = () => {
     }, [isLoading]);
 
     useEffect(() => {
+        const videoNode = videoRef.current;
         getUserCamera();
         return () => {
-            if (videoRef.current) {
-                const mediaStream = videoRef.current.srcObject as MediaStream;
+            if (videoNode) {
+                const mediaStream = videoNode.srcObject as MediaStream;
                 if (mediaStream instanceof MediaStream) {
                     mediaStream.getTracks().forEach((track) => {
                         track.stop();
@@ -132,7 +133,7 @@ const Camera = () => {
             }
         }
 
-    }, [videoRef]);
+    }, [videoRef, router]);
 
     return (
         <div className="flex flex-col relative justify-evenly my-auto">
