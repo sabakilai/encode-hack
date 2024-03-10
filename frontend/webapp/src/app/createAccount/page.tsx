@@ -106,7 +106,7 @@ const Camera = () => {
           ref={photoRef}>
         </canvas>}
       </div>
-      <div className="py-4"></div>
+      <div className="py-16"></div>
       <div className="flex w-full mb-8 justify-evenly">
         {selfie == false ?
           (<Button size="lg_icon" variant="secondary" onClick={handleTakePhoto}><IoCameraOutline size={60} /></Button>) :

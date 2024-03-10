@@ -151,7 +151,7 @@ const Camera = () => {
                             </canvas>
                         }
                     </div>
-                    <div className="py-4"></div>
+                    <div className="py-16"></div>
                     <div className="flex w-full mb-8 justify-evenly">
                         {ingredients == "" ?
                             (
