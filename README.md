@@ -10,7 +10,7 @@ See the demo **[here](https://www.youtube.com/watch?v=5Okp_ycsaE0)**!
 
 ## Why it matters
 
-In the new "age of eating", most of our calories come from an entirely novel set of substances: Ultra-Processed Foods (UPFs). These industrially processed marvels are designed to be irresistible and easy to overindulge in, leading to not-so-fun consequences like addiction and overconsumption. UPFs are everywhere, from your favourite ready-to-eat meals to those snack packs you can't put down, packed with sugars, salts, unhealthy fats, and additives. But why does this matter? Recent studies have linked UPFs to a host of health issues, including obesity, cardiovascular diseases, and even some cancers. Yikes! 
+Ultra-processed foods (UPF) are products created through manufacturing processes that predigest raw food ingredients. These foods are quick to digest, often leading to overconsumption of calories and weight gain. From ready-to-eat meals to packaged snacks and sodas, UPFs are often low in nutrients but high in sugar, salt, unhealthy fats, and additives. Recent studies have linked UPFs to a host of health issues, including obesity, cardiovascular diseases, and even some cancers.
 
 UPFs account for a significant portion of the total dietary energy consumed in many countries. In high-income nations like the UK, Canada, and the USA, they make up more than half of the total dietary intake. Even in middle-income countries such as Brazil, Mexico, and Chile, ultra-processed foods contribute between one-fifth and one-third of the total dietary energy.
 
