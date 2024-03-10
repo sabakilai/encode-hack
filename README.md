@@ -20,7 +20,7 @@ The UPF Checker addresses this issue by providing a straightforward way for user
 
 ## Project structure 
 
-- Research folder contains scripts with model training experiments we conducted and used to select our best final models that can found in the backend folder. 
+- Research folder contains scripts with model training experiments we conducted and used to select our best final models that can be found in the backend folder. 
 - Our backend is built using the Flask Python web framework. It has a sigle endpoint for our client to post requests.
 - Our frontend is a progressive web application built using the Next JS. It utilises the IndexedDB to store our user photo locally on the user device. Tailwind is used for the design. 
 
