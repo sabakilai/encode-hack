@@ -38,7 +38,9 @@ const Camera = () => {
             if (!videoRef.current) return;
             let video = videoRef.current;
             video.srcObject = stream;
-            video.play().catch((err) => console.error("Error playing video:", err));
+            video.onloadeddata = () => {
+                video.play().catch((err) => console.error("Error playing video:", err));
+            }
         } catch (err) {
             console.error("Error accessing the camera", err);
         }
@@ -80,7 +82,7 @@ const Camera = () => {
     const fetchIngredients = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch('http://127.0.0.1:5000/userInput', {
+            const res = await fetch('https://glacial-wave-67964-d5fa4a3815cb.herokuapp.com/userInput', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,9 +90,9 @@ const Camera = () => {
                 },
                 body: JSON.stringify({ user_photo: selfie, ingredients_photo: ingredients }),
             });
+            console.log(res);
             const data = await res.json();
-            set("response", data);
-            router.push('/result');
+            set("response", data).finally(() => router.push('/result'));
         } catch (error) {
             console.error(error);
             router.push('/errorPage');
